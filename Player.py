@@ -15,7 +15,10 @@ class Player:
         self.__is_turn = False
 
     def reset_player(self):
+        ### Clears all player information ###
+        self.player_name = ""
         self.ship_coordinates = self.ship_coordinates.clear()
+        self.player_shots = self.player_shots.clear()
 
     # setter done in constructor
     @property  # getter
@@ -72,7 +75,12 @@ class Player:
     def number_of_hits(self, value):
         self.__number_of_hits = self.__number_of_hits + value
 
-    def get_players_ship_locations(self):
+    def get_and_set_players_ship_locations(self):
+        ###
+        # gets the players ship coords via an input
+        # then validates it is correct
+        # if correct it passes the coord to the correct function
+        ###
         if self.ship_coordinates[0] == None:
             self.ship_coordinates.pop(0)
         while len(self.ship_coordinates) < self.ship.ship_length * 2:
@@ -90,12 +98,19 @@ class Player:
                         self.ship_coordinates, self.player_shots)
 
     def place_ship_on_players_board(self, formatted_coord):
+        ###
+        # appends ship coordinates to the ship_coordinates list
+        # Keyword arguments:
+        # formatted_coord - a dictionary in the {x:x,y:y,d:d} format
+        ###
         new_y = formatted_coord['x']
         new_x = formatted_coord['y']
         direction = formatted_coord['d']
         loops = 0
         length = self.ship.ship_length
 
+        # checks the ship direction and generates three coordinates based on
+        # supplied coordinate dictionary
         if direction == "v":
             i = new_x
             while loops < length:
@@ -120,21 +135,31 @@ class Player:
                 loops += 1
 
     def pew_pew(self, opposition_ships):
+        ###
+        # gets a shot coordinate string via an input, validates it and if
+        # valid appends it to the player_shots list.
+        # Keyword arguments:
+        # opposition_ships - list of all opposition ship coordinates, used
+        #   to check if the shot is a miss or hit
         shot = input("please enter a coordinate for your shot e.g a1: ")
         if utils.check_shot_coord_valid(shot):
             formatted_coord = utils.convert_shot_coord(shot)
             y = formatted_coord['x']
             x = formatted_coord['y']
+            # check to see if shot already taken
             if not any(d['x'] == x and d['y'] == y for d in self.player_shots):
                 self.player_shots = {"x": x, "y": y}
+                # check to see if shot is hit or miss
                 if any(d['x'] == x and d['y'] == y for d in opposition_ships):
                     self.number_of_hits = 1
                     print("hit")
                 else:
                     print("miss")
             else:
+                # Shot already taken
                 print("You have already taken a shot there, please try again")
                 self.pew_pew(opposition_ships)
         else:
+            # shot coordinates not valid
             print("Invalid coordinates, please try again")
             self.pew_pew(opposition_ships)

@@ -40,7 +40,15 @@ class Game:
     def is_winner(self, value):
         self.__is_winner = value
 
+    #
     def player_turn(self, player, opposition):
+        # a players turn
+        #
+        # Keyword arguments:
+        # player - the current player instance
+        # opposition - the opposing player instance
+        #
+        ###
         utils.clear_screen()
         print("%s, it's your turn:" % player.player_name)
         input("Press Enter to continue...")
@@ -65,6 +73,7 @@ class Game:
             opposition.is_turn = True
 
     def play_game(self):
+        ### plays the game until self.game_won becmes true###
         while not self.game_won:
             if self.player_1.is_turn:
                 self.player_turn(self.player_1, self.player_2)
@@ -77,16 +86,19 @@ class Game:
         print("%s wins!!" % self.is_winner)
 
     def setup_game_player(self, player):
+        ### Sets up the player's name and ship locations###
         player.reset_player()
         player.player_name = input(
             "Player %i, please enter you name: " % player.player_number)
         print("\n")
         print("Please place your ships: ")
-        player.get_players_ship_locations()
+        player.get_and_set_players_ship_locations()
         player.board.print_player_board(
             player.ship_coordinates, player.player_shots)
 
     def run_game(self):
+        utils.print_instructions()
+        input("Press Enter to continue...")
         self.player_1.is_turn = True
         self.setup_game_player(self.player_1)
         input("Press Enter to continue...")
