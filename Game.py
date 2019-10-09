@@ -14,10 +14,6 @@ class Game:
         self.__game_won = False
         self.__is_winner = ""
 
-    # setter done in constructor
-    @property  # getter
-    def board(self):
-        return self.__board
 
     # setter done in constructor
     @property  # getter
