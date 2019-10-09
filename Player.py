@@ -121,7 +121,7 @@ class Player:
     def pew_pew(self):
         shot = input("please enter a coordinate for your shot e.g a1: ")
         if utils.check_shot_coord_valid(shot):
-            formatted_coord = utils.convert_ship_coord(shot)
+            formatted_coord = utils.convert_shot_coord(shot)
             y = formatted_coord['x']
             x = formatted_coord['y']
             if not any(d['x'] == x and d['y'] == y for d in self.player_shots):
@@ -134,4 +134,7 @@ class Player:
             else:
                 print("You have already taken a shot there, please try again")
                 self.pew_pew()
+        else:
+            print("Invalid coordinates, please try again")
+            self.pew_pew()
         input("Press Enter to continue...")

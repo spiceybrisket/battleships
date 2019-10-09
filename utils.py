@@ -29,18 +29,19 @@ def check_ship_coord_valid(coord):
             return is_valid
 
 
-def check_shot_coord_valid(coord): a
-  is_valid = False
+def check_shot_coord_valid(coord):
+    is_valid = False
 
-   if len(coord) != 2:
+    if len(coord) != 2:
         return is_valid
     elif not coord[0].isalpha():
         return is_valid
     elif not coord[1].isdigit():
         return is_valid
     else:
-        y = ord(coord[0].lower())-ord('a')
-        x = int(coord[1]) - 1
+        formmated_coord = convert_shot_coord(coord)
+        x = formmated_coord['x']
+        y = formmated_coord['y']
         if x >= 0 and x <= 4:
             if y >= 0 and y <= 4:
                 is_valid = True
@@ -69,7 +70,7 @@ def convert_coord(coord):
     return {"x": x, "y": y, "d": d}
 
 
-def convert_ship_coord(coord):
+def convert_shot_coord(coord):
     x = ord(coord[0])-ord('a')
     y = int(coord[1]) - 1
     return {"x": x, "y": y}
