@@ -59,13 +59,14 @@ def clear_screen():
 
 
 def convert_coord(coord):
-    y = ord(coord[0].lower())-ord('a')
-    x = int(coord[1]) - 1
+    # convert string like "a1v" to x, y coordinates and the direction
+    x = ord(coord[0].lower())-ord('a')
+    y = int(coord[1]) - 1
     d = coord[2]
     return {"x": x, "y": y, "d": d}
 
 
 def convert_ship_coord(coord):
-    y = ord(coord[0].lower())-ord('a')
-    x = int(coord[1]) - 1
+    x = ord(coord[0])-ord('a')
+    y = int(coord[1]) - 1
     return {"x": x, "y": y}

@@ -50,6 +50,7 @@ class Player:
     @ship_coordinates.setter  # setter
     def ship_coordinates(self, value):
         self.__ship_coordinates.append(value)
+        print(self.ship_coordinates)
 
     @property  # getter
     def player_shots(self):
@@ -85,9 +86,10 @@ class Player:
                     print("There is already a ship in this location, please try again")
                 else:
                     self.place_ship_on_players_board(formatted_coord)
+                    self.board.print_player_board(
+                        self.ship_coordinates, self.player_shots)
 
     def place_ship_on_players_board(self, formatted_coord):
-        # convert string like "a1" to x, y coordinates
         new_y = formatted_coord['x']
         new_x = formatted_coord['y']
         direction = formatted_coord['d']
@@ -106,10 +108,10 @@ class Player:
                     i += 1
                 loops += 1
         else:
-            i = new_y - 1
+            i = new_y
             while loops < length:
                 self.ship_coordinates = {
-                    "x": new_x, "y": i + 1, "direction": direction
+                    "x": new_x, "y": i, "direction": direction
                 }
                 if new_y >= 3:
                     i -= 1
