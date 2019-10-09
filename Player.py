@@ -4,12 +4,12 @@ import utils
 
 
 class Player:
-    def __init__(self, player_number):
+    def __init__(self, player_number, ships=[]):
         self.__ship = Ship()
         self.__player_number = player_number
         self.__player_board = Board()
         self.__player_name = ""
-        self.__ship_coordinates = []
+        self.__ship_coordinates = ships
         self.__player_shots = []
         self.__number_of_hits = 0
         self.__is_turn = False
@@ -50,6 +50,7 @@ class Player:
     @ship_coordinates.setter  # setter
     def ship_coordinates(self, value):
         self.__ship_coordinates.append(value)
+        print(self.ship_coordinates)
 
     @property  # getter
     def player_shots(self):
@@ -118,7 +119,7 @@ class Player:
                     i += 1
                 loops += 1
 
-    def pew_pew(self):
+    def pew_pew(self, opposition_ships):
         shot = input("please enter a coordinate for your shot e.g a1: ")
         if utils.check_shot_coord_valid(shot):
             formatted_coord = utils.convert_shot_coord(shot)
@@ -126,15 +127,14 @@ class Player:
             x = formatted_coord['y']
             if not any(d['x'] == x and d['y'] == y for d in self.player_shots):
                 self.player_shots = {"x": x, "y": y}
-                if any(d['x'] == x and d['y'] == y for d in self.ship_coordinates):
+                if any(d['x'] == x and d['y'] == y for d in opposition_ships):
                     self.number_of_hits = 1
                     print("hit")
                 else:
                     print("miss")
             else:
                 print("You have already taken a shot there, please try again")
-                self.pew_pew()
+                self.pew_pew(opposition_ships)
         else:
             print("Invalid coordinates, please try again")
-            self.pew_pew()
-        input("Press Enter to continue...")
+            self.pew_pew(opposition_ships)

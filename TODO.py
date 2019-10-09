@@ -1,3 +1,3 @@
-# TODO: Clear screen after turn
-# TODO: handle bad sho coords
-# TODO: fix bad hit/miss logic
+# TODO: handle bad shot coords - done
+# TODO: fix bad hit/miss logic - done
+# TODO: improve clearing screen for turns - done

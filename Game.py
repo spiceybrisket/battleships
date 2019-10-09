@@ -14,7 +14,6 @@ class Game:
         self.__game_won = False
         self.__is_winner = ""
 
-
     # setter done in constructor
     @property  # getter
     def player_1(self):
@@ -44,6 +43,8 @@ class Game:
     def player_turn(self, player, opposition):
         utils.clear_screen()
         print("%s, it's your turn:" % player.player_name)
+        input("Press Enter to continue...")
+        utils.clear_screen()
         print("\n")
         print("Your shots")
         player.board.print_opp_board(
@@ -55,7 +56,7 @@ class Game:
         print("%s has %i hits, and %s has %i hits" %
               (self.player_1.player_name, self.player_1.number_of_hits,
                self.player_2.player_name, self.player_2.number_of_hits))
-        player.pew_pew()
+        player.pew_pew(opposition.ship_coordinates)
         if player.number_of_hits > 5:
             self.game_won = True
             self.is_winner = player.player_name
