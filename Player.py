@@ -50,7 +50,6 @@ class Player:
     @ship_coordinates.setter  # setter
     def ship_coordinates(self, value):
         self.__ship_coordinates.append(value)
-        print(self.ship_coordinates)
 
     @property  # getter
     def player_shots(self):
